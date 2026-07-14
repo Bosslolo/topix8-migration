@@ -4,6 +4,24 @@ Private handoff package for moving **TOPIX8 Server** (and clients) from the prod
 
 **This repo does NOT contain the live database.** The `.4DD` file is ~18 GB and must be copied by disk/network (see below). Putting ERP customer data in GitHub is also a privacy risk.
 
+## Tell the other AI (old PC)
+
+Paste this to Cursor on the **production** machine:
+
+> Pull `Bosslolo/topix8-migration`, then follow **`docs/AI-OLD-PC-INSTRUCTIONS.md`** exactly. Run all non-physical staging steps. Prefer `.\scripts\prepare-migration-bundle.ps1 -StagingRoot "F:\TOPIX-Migration-Staging"` after TOPIX is idle and stopped. Do not move the HASP key. Report the staging path and `STAGING-MANIFEST.txt` summary when done.
+
+| Agent doc | Machine |
+|-----------|---------|
+| [docs/AI-OLD-PC-INSTRUCTIONS.md](docs/AI-OLD-PC-INSTRUCTIONS.md) | Old HP (stage installers + DB + licenses + HASP drivers) |
+| [docs/AI-NEW-PC-INSTRUCTIONS.md](docs/AI-NEW-PC-INSTRUCTIONS.md) | New Lenovo (install + restore once staging arrives) |
+
+One-shot on old PC (after server stop):
+
+```powershell
+git pull
+.\scripts\prepare-migration-bundle.ps1 -StagingRoot "F:\TOPIX-Migration-Staging"
+```
+
 ## Source machine (as of 2026-07-14)
 
 | Item | Value |

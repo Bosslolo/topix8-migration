@@ -27,3 +27,8 @@ Desktop.ini
 .env
 *.token
 *credentials*
+
+# Local inventory dumps — allow text reports, ignore anything else
+inventory-output/*
+!inventory-output/.gitkeep
+!inventory-output/*.txt
