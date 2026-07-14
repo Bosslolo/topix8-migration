@@ -1,0 +1,29 @@
+# Never commit live TOPIX databases or journals
+*.4DD
+*.4DIndx
+*.4DIndy
+*.journal
+*.Match
+*.4DC
+*.4dbase/
+**/Replaced Files*/
+
+# Large installers — store on disk / Release assets, not git
+*.exe
+*.msi
+*.zip
+!scripts/**
+
+# OS / editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.tmp
+*.log
+.vs/
+.idea/
+
+# Secrets
+.env
+*.token
+*credentials*
