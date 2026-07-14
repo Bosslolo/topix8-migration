@@ -4,6 +4,8 @@
 **Goal:** Stage everything the new Lenovo can install and restore from disk/network.  
 **Repo:** `https://github.com/Bosslolo/topix8-migration` (private)
 
+Deutsche menschlichen Anleitungen parallel nutzen: [00-UMZUG-GESAMT.md](00-UMZUG-GESAMT.md), [03-DATEN-KOPIEREN.md](03-DATEN-KOPIEREN.md), [STAGING.md](STAGING.md).
+
 Humans handle anything that needs hands. You handle everything else on this machine.
 
 ---

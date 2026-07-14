@@ -65,4 +65,4 @@ Use the Server UI to open `$Data` with structure `TOPIX8.4DC`. Smoke-test after 
 - Point clients at this PC’s hostname/IP.
 - Open the same TOPIX/4D ports documented in inventory / old firewall rules.
 
-Full narrative: [MIGRATION-RUNBOOK.md](MIGRATION-RUNBOOK.md) · HASP detail: [HASP-USB-KEY.md](HASP-USB-KEY.md)
+Deutsche Gesamtanleitung: [00-UMZUG-GESAMT.md](00-UMZUG-GESAMT.md) · Installation: [04-INSTALLATION-NEUER-PC.md](04-INSTALLATION-NEUER-PC.md) · HASP: [02-HASP-USB-SCHLUESSEL.md](02-HASP-USB-SCHLUESSEL.md) · Checkliste: [06-CHECKLISTE.md](06-CHECKLISTE.md)

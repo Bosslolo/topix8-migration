@@ -1,10 +1,13 @@
 <#
 .SYNOPSIS
-  Stage TOPIX data + licenses + installer references for migration.
+  TOPIX-Daten, Lizenzen und Installer fuer den Umzug stagen (robocopy).
+.DESCRIPTION
+  Zuerst TOPIX8 Server auf dem alten PC beenden!
+  Beispiel: .\stage-data-copy.ps1 -Destination "F:\TOPIX-Migration-Staging\data"
 .PARAMETER Destination
-  Target folder (external disk or F:\TOPIX-Migration-Staging\data parent).
+  Zielordner (NAS/USB), z.B. F:\TOPIX-Migration-Staging\data
 .PARAMETER IncludeBroken
-  Also copy *_broken.4DD (large). Default: false.
+  Auch *_broken.4DD kopieren (gross). Standard: aus.
 #>
 param(
   [Parameter(Mandatory = $true)]

@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Export TOPIX / HASP / disk inventory for migration staging.
+  Exportiert TOPIX-/HASP-/Festplatten-Inventar fuer den Umzug.
 #>
 $ErrorActionPreference = 'Continue'
 $outDir = Join-Path $PSScriptRoot '..\inventory-output'

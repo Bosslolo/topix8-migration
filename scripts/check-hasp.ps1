@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-  Quick HASP detection check for old or new PC.
+  Prueft ob der Aladdin-HASP-USB-Schluessel erkannt wird (alter oder neuer PC).
 #>
 Write-Host "=== PnP HASP / Aladdin ===" -ForegroundColor Cyan
 $devs = Get-PnpDevice -ErrorAction SilentlyContinue | Where-Object {
