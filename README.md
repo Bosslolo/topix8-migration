@@ -20,7 +20,9 @@ Repo: https://github.com/Bosslolo/topix8-migration (privat)
 | [docs/05-CLIENTS-UMSTELLEN.md](docs/05-CLIENTS-UMSTELLEN.md) | Arbeitsplätze umstellen |
 | [docs/06-CHECKLISTE.md](docs/06-CHECKLISTE.md) | Abhak-Liste Tag X |
 | [docs/STAGING.md](docs/STAGING.md) | Wo liegen Installer/Lizenzen/Daten |
+| [docs/07-INSTALLER-UND-HASP-TREIBER.md](docs/07-INSTALLER-UND-HASP-TREIBER.md) | **`.exe` Release + exakte HASP-Treiber** |
 | [docs/INVENTORY.md](docs/INVENTORY.md) | Inventar alter PC |
+| [`hasp-drivers/`](hasp-drivers/) | Exportierte Treiber vom laufenden PC (`VERSION.txt`) |
 
 ### Auf dem neuen PC
 

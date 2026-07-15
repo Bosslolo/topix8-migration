@@ -18,12 +18,19 @@ Ohne diesen Key startet TOPIX8 Server nicht korrekt lizenziert.
 3. Auf dem alten PC sind sehr alte Treiber (ca. 2006) – frisches Win11 + Secure Boot blockiert oft, bis der TOPIX-Installer die Treiber setzt.  
 4. Key nur stecken **ohne** Treiber bringt nichts.
 
+## Exakte Treiber dieses Servers
+
+Siehe **[07-INSTALLER-UND-HASP-TREIBER.md](07-INSTALLER-UND-HASP-TREIBER.md)** und Ordner **`hasp-drivers/`** (inkl. `VERSION.txt`).
+
+Funktionierende Dateien hier: `aksclass/akshasp/aksusb/hardlock.sys` (Stand Dez. 2006) + DriverStore-Pakete `akshasp.inf_*` / `aksusb.inf_*`.
+
 ## Reihenfolge (verbindlich)
 
 1. TOPIX8 Server installieren (HASP-/Gerätetreiber-Option mitnehmen, falls gefragt).  
-2. Neustart falls Installer das verlangt.  
-3. Key stecken.  
-4. Prüfen:
+2. Zusätzlich vom Repo: `.\scripts\install-hasp-drivers.ps1` (Administrator).  
+3. Neustart falls verlangt.  
+4. Key stecken.  
+5. Prüfen:
 
 ```powershell
 cd Pfad\zu\topix8-migration

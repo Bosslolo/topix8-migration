@@ -8,11 +8,12 @@
 *.4dbase/
 **/Replaced Files*/
 
-# Large installers — store on disk / Release assets, not git
+# Large installers — GitHub blocks >100MB in git; use Release topix8-binaries
 *.exe
 *.msi
 *.zip
 !scripts/**
+# HASP driver packages (sys/inf) ARE committed under hasp-drivers/
 
 # OS / editor
 Thumbs.db
