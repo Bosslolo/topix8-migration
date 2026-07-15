@@ -33,16 +33,24 @@ cd topix8-migration
 
 ---
 
+## Shared NAS (beide PCs)
+
+Big files live on **`\\WDMYCLOUD\Public`** (often mapped as `F:`).  
+Migration bundle: **`\\WDMYCLOUD\Public\TOPIX-Migration-Staging\`**  
+Details: [docs/SHARED-NAS.md](docs/SHARED-NAS.md)
+
 ## Für Cursor / AI auf den jeweiligen PCs
 
 | Anleitung | Maschine |
 |-----------|----------|
-| [docs/AI-OLD-PC-INSTRUCTIONS.md](docs/AI-OLD-PC-INSTRUCTIONS.md) | Alter HP – Staging (Installer, DB, Lizenzen, HASP-Treiber) |
+| [docs/AI-OLD-PC-NEXT.md](docs/AI-OLD-PC-NEXT.md) | **Start here on old HP** – what to put on Public / when to copy live DB |
+| [docs/QUICKTIME-6.5.md](docs/QUICKTIME-6.5.md) | **Blocker:** QuickTime 6.5 required before TOPIX install |
+| [docs/AI-OLD-PC-INSTRUCTIONS.md](docs/AI-OLD-PC-INSTRUCTIONS.md) | Full staging cookbook |
 | [docs/AI-NEW-PC-INSTRUCTIONS.md](docs/AI-NEW-PC-INSTRUCTIONS.md) | Neuer Lenovo – Installation + Restore |
 
 **An die KI auf dem alten PC:**
 
-> Pull `Bosslolo/topix8-migration`, dann **`docs/AI-OLD-PC-INSTRUCTIONS.md`** und die deutsche Doku befolgen. Staging vorbereiten. HASP-Key **nicht** dauerhaft entfernen, bis Cutover. Am Schluss Staging-Pfad und `STAGING-MANIFEST.txt` melden.
+> Pull `Bosslolo/topix8-migration`, follow **`docs/AI-OLD-PC-NEXT.md`**. Use `\\WDMYCLOUD\Public\TOPIX-Migration-Staging` for all large files. Keep production TOPIX + HASP key on this PC until cutover. Only stop the server and copy live `data\` when the user approves an idle window.
 
 One-Shot auf dem alten PC (TOPIX vorher stoppen):
 

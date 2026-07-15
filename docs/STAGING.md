@@ -1,15 +1,16 @@
 # Staging-Orte (nicht im Git)
 
-Die großen Dateien liegen auf dem alten Standort / NAS:
+Gemeinsamer Spot für **beide** PCs: **`\\WDMYCLOUD\Public`** (meist `F:\`).  
+Siehe auch [SHARED-NAS.md](SHARED-NAS.md).
 
 ## Bereits vorhanden
 
 | Pfad | Inhalt |
 |------|--------|
-| `F:\TOPIX-Migration-Staging\installers\TOPIX8_8602_Server.exe` | Server-Installer (~275 MB) |
-| `F:\TOPIX-Migration-Staging\licenses\` | `1.license4D`, `pl1.license4D` |
-| `F:\TOPIX-Migration-Staging\archive-broken\` | alte broken-4DD (Archiv) |
-| `F:\TOPIX-Migration-Staging\data\` | **hierhin** Live-DB beim Cutover |
+| `\\WDMYCLOUD\Public\TOPIX-Migration-Staging\installers\TOPIX8_8602_Server.exe` | Server-Installer (~275 MB) |
+| `...\licenses\` | `1.license4D`, `pl1.license4D` |
+| `...\archive-broken\` | alte broken-4DD (Archiv) |
+| `...\data\` | **hierhin** Live-DB beim Cutover (noch leer bis Server-Stopp) |
 
 ## Alten PC (Originale)
 
