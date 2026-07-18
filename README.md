@@ -1,101 +1,42 @@
-# TOPIX 8 Umzug (Migration)
+# TOPIX 8 on Windows 11 — migration notes
 
-Privates Repo für den Umzug von **TOPIX8 Server** vom alten HP EliteDesk auf den **neuen PC**.
+**Status:** Migration complete. This repo is kept only as a short record of what mattered.
 
-**Wichtig:** Die lebende Datenbank (~18 GB) liegt **nicht** in GitHub. Daten über Festplatte / `F:\TOPIX-Migration-Staging`.
+The live database, license files, installers, and machine inventory were **never** meant for GitHub and are not stored here.
 
-Repo: https://github.com/Bosslolo/topix8-migration (privat)
+## Goal
 
----
+Move a **TOPIX 8 Server** installation from an older Windows PC onto a **new Windows 11 Pro** machine (physical PC, not a VM), with the same Aladdin HASP USB license key, then point client workstations at the new host.
 
-## Für Menschen (Start hier)
+## What blocked a naive “install and copy” approach
 
-| Dokument | Inhalt |
-|----------|--------|
-| [docs/00-UMZUG-GESAMT.md](docs/00-UMZUG-GESAMT.md) | **Gesamtablauf Umzug** |
-| [docs/01-NEUER-PC-VORAUSSETZUNGEN.md](docs/01-NEUER-PC-VORAUSSETZUNGEN.md) | Was der neue PC braucht |
-| [docs/02-HASP-USB-SCHLUESSEL.md](docs/02-HASP-USB-SCHLUESSEL.md) | USB-Lizenzschlüssel unter Win11 |
-| [docs/03-DATEN-KOPIEREN.md](docs/03-DATEN-KOPIEREN.md) | Datenbank & Staging |
-| [docs/04-INSTALLATION-NEUER-PC.md](docs/04-INSTALLATION-NEUER-PC.md) | TOPIX installieren |
-| [docs/05-CLIENTS-UMSTELLEN.md](docs/05-CLIENTS-UMSTELLEN.md) | Arbeitsplätze umstellen |
-| [docs/06-CHECKLISTE.md](docs/06-CHECKLISTE.md) | Abhak-Liste Tag X |
-| [docs/STAGING.md](docs/STAGING.md) | Wo liegen Installer/Lizenzen/Daten |
-| [docs/07-INSTALLER-UND-HASP-TREIBER.md](docs/07-INSTALLER-UND-HASP-TREIBER.md) | **`.exe` Release + exakte HASP-Treiber** |
-| [docs/INVENTORY.md](docs/INVENTORY.md) | Inventar alter PC |
-| [`hasp-drivers/`](hasp-drivers/) | Exportierte Treiber vom laufenden PC (`VERSION.txt`) |
+1. **Aladdin HASP USB license key**  
+   TOPIX 8 needs the physical HASP key plus working HASP device drivers. A fresh Windows 11 box often does not see the key until the TOPIX installer (and, if needed, the matching HASP drivers) are installed. The key must not run two licensed servers at once — keep it on production until cutover, with only a short test on the new PC.
 
-### Auf dem neuen PC
+2. **QuickTime 6.5 on Windows**  
+   The TOPIX 8 server installer expects **Apple QuickTime 6.5.x**. Newer QuickTime builds can be rejected. Install 6.5 first, then run the TOPIX server setup.
 
-```powershell
-gh auth login
-git clone https://github.com/Bosslolo/topix8-migration.git
-cd topix8-migration
-# dann: docs\00-UMZUG-GESAMT.md
-```
+3. **Large database outside git**  
+   The live TOPIX data set is tens of gigabytes. Stage it on local disk / external drive / shared storage during cutover — never commit it.
 
----
+4. **Licenses and installers offline**  
+   License files and the TOPIX installer live next to the install on disk, not in this repository.
 
-## Shared NAS (beide PCs)
+## High-level cutover
 
-Big files live on **`\\WDMYCLOUD\Public`** (often mapped as `F:`).  
-Migration bundle: **`\\WDMYCLOUD\Public\TOPIX-Migration-Staging\`**  
-Details: [docs/SHARED-NAS.md](docs/SHARED-NAS.md)
+1. **Prepare the new PC** — Windows 11 Pro, enough RAM/SSD free space, stable LAN (fixed IP helps), admin access.
+2. **Install prerequisites** — QuickTime 6.5, then TOPIX 8 Server (include HASP/device driver options when prompted).
+3. **HASP smoke test** — Briefly move the key to the new PC, confirm Device Manager shows the HASP device healthy, then return the key to the old production PC until cutover day.
+4. **Idle window** — All users out of TOPIX; stop the old server cleanly.
+5. **Copy data** — Mirror the TOPIX data directory (and licenses) to the new machine via disk/staging — verify sizes.
+6. **Go live** — Place data and licenses on the new PC, leave the HASP key there permanently, start TOPIX 8 Server, open the database, smoke-test login / record / print or export.
+7. **Retarget clients** — Point workstations at the new hostname/IP; leave the old server off (no second licensed instance).
+8. **Handover** — Daily backup to a second disk; keep the old PC untouched for a rollback window (about two weeks).
 
-## Für Cursor / AI auf den jeweiligen PCs
+## Rollback
 
-| Anleitung | Maschine |
-|-----------|----------|
-| [docs/AI-OLD-PC-NEXT.md](docs/AI-OLD-PC-NEXT.md) | **Start here on old HP** – what to put on Public / when to copy live DB |
-| [docs/QUICKTIME-6.5.md](docs/QUICKTIME-6.5.md) | **Blocker:** QuickTime 6.5 required before TOPIX install |
-| [docs/AI-OLD-PC-INSTRUCTIONS.md](docs/AI-OLD-PC-INSTRUCTIONS.md) | Full staging cookbook |
-| [docs/AI-NEW-PC-INSTRUCTIONS.md](docs/AI-NEW-PC-INSTRUCTIONS.md) | Neuer Lenovo – Installation + Restore |
+Stop the new server, move the HASP key back, start the old server on its original data, retarget clients.
 
-**An die KI auf dem alten PC:**
+## Outcome
 
-> Pull `Bosslolo/topix8-migration`, follow **`docs/AI-OLD-PC-NEXT.md`**. Use `\\WDMYCLOUD\Public\TOPIX-Migration-Staging` for all large files. Keep production TOPIX + HASP key on this PC until cutover. Only stop the server and copy live `data\` when the user approves an idle window.
-
-One-Shot auf dem alten PC (TOPIX vorher stoppen):
-
-```powershell
-git pull
-.\scripts\prepare-migration-bundle.ps1 -StagingRoot "F:\TOPIX-Migration-Staging"
-```
-
----
-
-## Was wird umgezogen?
-
-| Was | Transport |
-|-----|-----------|
-| Anleitungen + Skripte | dieses Repo (`git clone`) |
-| Installer (~275 MB) | `F:\TOPIX-Migration-Staging\installers\` |
-| Lizenzdateien | Staging `licenses\` |
-| Datenbank ~18 GB | Staging `data\` / robocopy – **nie Git** |
-| Physischer HASP-Key | Hand mitnehmen (erst nach Treiber-Test / Cutover) |
-
-## Staging (NAS)
-
-```
-F:\TOPIX-Migration-Staging\
-  installers\          TOPIX8_8602_Server.exe
-  licenses\            *.license4D
-  data\                Live-DB erst nach Server-Stopp
-  archive-broken\      alte broken-4DD (Archiv)
-  HASP-Drivers\        falls per Skript exportiert
-  STAGING-MANIFEST.txt nachdem Bundle-Skript lief
-```
-
-## Kritische Reihenfolge
-
-1. Neuer PC: Win11 **Pro**, genug RAM/SSD  
-2. Repo klonen, Installer + TOPIX8 Server (mit HASP-Treibern)  
-3. HASP kurz testen → Key zurück auf alten PC bis Cutover  
-4. Alter PC: TOPIX stoppen → `prepare-migration-bundle.ps1` / `stage-data-copy.ps1`  
-5. Daten auf neuen PC, Key endgültig, Server starten, Clients umstellen  
-6. Alten Server aus lassen (≥2 Wochen Rollback)
-
-## Sicherheit
-
-- Live-DB auf dem alten PC nicht löschen, bis neuer Server Tage stabil läuft.  
-- Kein Produktionsbetrieb in VMs.  
-- Bei HASP-Problemen: TOPIX Support (topix.de).
+TOPIX 8 Server runs on the new Windows 11 machine with HASP licensing and the migrated database. This document replaces the previous migration kit (scripts, driver dumps, and environment-specific runbooks).
